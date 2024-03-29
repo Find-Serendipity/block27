@@ -23,6 +23,8 @@ function SignUpForm({ setAuthKey }) {
       const unpackedKey = await apiKeyResponse.json();
 
       setAuthKey(unpackedKey.token);
+      setUsername("");
+      setPassword("");
     } catch (error) {
       setError(error.message);
     }
