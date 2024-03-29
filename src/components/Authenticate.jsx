@@ -17,7 +17,9 @@ export default function Authenticate({ authKey }) {
           },
         }
       );
+
       const result = await clickResponse.json();
+
       setSuccessMessage(result.message);
     } catch (error) {
       setError(error.message);
