@@ -9,17 +9,20 @@ function SignUpForm({ setAuthKey }) {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const requestOptions = {
+      const loginPackage = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       };
-      const response = await fetch(
+
+      const apiKeyResponse = await fetch(
         "https://fsa-jwt-practice.herokuapp.com/signup",
-        requestOptions
+        loginPackage
       );
-      const keyResponse = await response.json();
-      setAuthKey(keyResponse.token);
+
+      const unpackedKey = await apiKeyResponse.json();
+
+      setAuthKey(unpackedKey.token);
     } catch (error) {
       setError(error.message);
     }
@@ -35,26 +38,30 @@ function SignUpForm({ setAuthKey }) {
           Username:
           <input
             type="text"
-            placeholder={username}
+            placeholder="Enter your login!"
             onChange={(e) => setUsername(e.target.value)}
           />
         </label>
-        <label className="pass">Enter password: </label>
-        <input
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <br />
-        <label className="check">Show Password</label>
-        <input
-          type="checkbox"
-          value={showPassword}
-          onChange={() => setShowPassword((prev) => !prev)}
-        />
 
-        <button>Submit</button>
+        <label>
+          Enter password:
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter your password!"
+            onChange={(e) => setPassword(e.target.value)}
+          />{" "}
+        </label>
+
+        <label>
+          Show Password
+          <input
+            type="checkbox"
+            value={showPassword}
+            onChange={() => setShowPassword((prev) => !prev)}
+          />
+        </label>
+
+        <button className="submit">Submit</button>
       </form>
     </>
   );

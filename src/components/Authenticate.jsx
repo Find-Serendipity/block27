@@ -29,7 +29,9 @@ export default function Authenticate({ authKey }) {
       <h2>Authenticate Your Login</h2>
       {successMessage && <p>{successMessage}</p>}
       {error && <p>{error}</p>}
-      <button onClick={handleClick}>SMASH THAT BUTTON!</button>
+      <button className="smash" onClick={handleClick}>
+        SMASH THAT BUTTON!
+      </button>
     </div>
   );
 }
